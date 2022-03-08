@@ -1,0 +1,1 @@
+//authorization make sure everyone using my tech blog is authorized to do so like they have to have an account to actually use the tech blog
