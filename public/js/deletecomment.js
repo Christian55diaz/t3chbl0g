@@ -25,3 +25,7 @@ console.log(blogpost_id);
     alert(response.statusText);
   }
 }
+
+document
+  .querySelector(".delete-comment")
+  .addEventListener("click", deleteCommentFormHandler);
