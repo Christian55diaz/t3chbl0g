@@ -25,3 +25,8 @@ async function createFormHandler(event) {
         alert(response.statusText);
       }
     }
+
+    //call function for create blog post
+    document
+  .querySelector(".create-new-blog-post-form")
+  .addEventListener("submit", createFormHandler);
