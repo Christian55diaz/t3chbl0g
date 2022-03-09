@@ -6,3 +6,28 @@ async function commentFormHandler(event) {
     const blogpost_id = window.location.toString().split("/")[
         window.location.toString().split("/").length - 1
       ];
+      //logging the blogpost id
+      console.log(blogpost_id);
+      //if statement for comment_text
+      if (comment_text) {
+        const response = await fetch("/api/comments", {
+          method: "POST",
+          body: JSON.stringify({
+            blogpost_id,
+            comment_text,
+          }),
+          //headers json
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        //if the comment is too long we give them an alert saying comment is too long
+        if (response.ok) {
+            document.location.reload();
+          } else {
+            alert(
+              "Your comment might be a little too long for this site try shortening it :). Max characters for a comment is 32"
+            );
+          }
+        }
+      }
