@@ -17,4 +17,15 @@ async function deleteFormHandler(event) {
       "Content-Type": "application/json",
     },
   });
-  
+
+  //if repsonse making sure the delete goes well if not you get an alert
+  if (response.ok) {
+    document.location.replace("/dashboard");
+  } else {
+    alert(response.statusText);
+  }
+}
+
+document
+  .querySelector(".delete-blog")
+  .addEventListener("click", deleteFormHandler);
