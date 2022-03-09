@@ -8,7 +8,8 @@ const blogpost_id = window.location.toString().split("/")[
   ];
 //console log by blogpost id
 console.log(blogpost_id);
-  const response = await fetch(`/api/comments/${blogpost_id}`, {
+//we get the comment and link it with its specific id from
+  const response = await fetch(`/api/comment/${blogpost_id}`, {
     method: "DELETE",
     body: JSON.stringify({
       blogpost_id,

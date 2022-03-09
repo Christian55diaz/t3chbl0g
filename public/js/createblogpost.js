@@ -7,7 +7,7 @@ async function createFormHandler(event) {
 
     //we are trying to get response from our blogpost api
     //post method for title and blog content
-    const response = await fetch(`/api/blogpost`, {
+    const response = await fetch(`/api/bpost`, {
         method: "POST",
         body: JSON.stringify({
           title,
@@ -28,5 +28,5 @@ async function createFormHandler(event) {
 
     //call function for create blog post
     document
-  .querySelector(".create-new-blog-post-form")
+  .querySelector(".blog-post-create")
   .addEventListener("submit", createFormHandler);
