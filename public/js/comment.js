@@ -26,8 +26,12 @@ async function commentFormHandler(event) {
             document.location.reload();
           } else {
             alert(
-              "Your comment might be a little too long for this site try shortening it :). Max characters for a comment is 32"
+              "Sorry to tell you but the comment you have wrote is too long"
             );
           }
         }
       }
+      //calling function
+      document
+  .querySelector(".comment-section-form")
+  .addEventListener("submit", commentFormHandler);
