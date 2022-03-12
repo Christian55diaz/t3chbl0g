@@ -12,3 +12,21 @@ class User extends Model {
         return bcrypt.compareSync(loginPw, this.password);
     }
 }
+
+//we set up our user models for our database
+User.init(
+    {
+        //id column
+        id: {
+            //specifcy what type of data this is with DataTypes 
+            type: DataTypes.INTEGER,
+            //sql version of saying not null
+            allowNull: false,
+            //primary key
+            primaryKey: true,
+            //turning on auto-increment
+            autoIncrement: true
+        },
+        //lets make a username column
+    }
+)
