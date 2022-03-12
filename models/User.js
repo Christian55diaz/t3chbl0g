@@ -1,7 +1,6 @@
 //user model
 //require bcrypt for hasing library
 const bcrypt = require('bcrypt');
-
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection'); 
 
@@ -12,7 +11,6 @@ class User extends Model {
         return bcrypt.compareSync(loginPw, this.password);
     }
 }
-
 //we set up our user models for our database
 User.init(
     {
@@ -32,6 +30,14 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
           },
+          //email
+          email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+              isEmail: true,
+            },
           //password column
           password: {
             type: DataTypes.STRING,
@@ -42,9 +48,9 @@ User.init(
             }
         }
     },
-    {
         //async/await function
         //hash everytime user is created to save for later
+        //new password will be 10 so its harder to be hacked
         hooks: {
             //beforeCreate setup
             async beforeCreate(newUserData) {
