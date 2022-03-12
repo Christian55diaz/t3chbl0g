@@ -33,6 +33,13 @@ Comment.init(
           },
     },
     {
-
+        //adding sequelize
+     sequelize,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "comment",
     }
-)
+);
+//exporting
+module.exports = Comment;
+
