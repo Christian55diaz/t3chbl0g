@@ -7,16 +7,9 @@ async function deleteFormHandler(event) {
       ];
       //logging the id and targeting the blogpost api delete method to delete specific blogpost
       console.log(id);
-  const response = await fetch(`/api/bpost/${id}`, {
-    method: "DELETE",
-    body: JSON.stringify({
-      // variable is named like this so that code is done neatly
-      blogpost_id: id,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+      const response = await fetch(`/api/posts/${id}`, {
+        method: 'DELETE'
+      });
 
   //if repsonse making sure the delete goes well if not you get an alert
   if (response.ok) {
@@ -27,5 +20,5 @@ async function deleteFormHandler(event) {
 }
 
 document
-  .querySelector(".delete-blog")
+  .querySelector(".remove-blog")
   .addEventListener("click", deleteFormHandler);
