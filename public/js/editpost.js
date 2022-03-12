@@ -10,6 +10,7 @@ async function editFormHandler (event) {
 
     if (title !== "" && contents !== "") {
         const response = await fetch(`/api/posts/${id}`, {
+            method: 'PUT',
             body: JSON.stringify({
                 title,
                 contents
@@ -18,5 +19,19 @@ async function editFormHandler (event) {
                 'Content-Type': 'application/json'
               }
             });
+            if (response.ok) {
+                document.location.replace('/dashboard/');
+            } else {
+                alert(response.statusText);
+            }
+    } else {
+        if (title === "" && contents === "") {
+            alert("Title and description required")
+          } else if (title === "") {
+            alert("Enter a title then you can repost")
+          } else if (contents === "") {
+            alert("Enter a description then post")
+          } else {
+          }
     }
 }
