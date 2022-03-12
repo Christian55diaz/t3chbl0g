@@ -22,6 +22,17 @@ Comment.init(
               key: "id",
             },
         },
-        
+        //comment text requirements 
+        comment_text: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+              // validating the comments for a certian length instead of them being super long we have a good character range from 2-40
+              len: [2, 40],
+            },
+          },
+    },
+    {
+
     }
 )
