@@ -9,6 +9,14 @@ async function editFormHandler (event) {
     const contents = document.querySelector('textarea[name="post-contents"]').value.trim();
 
     if (title !== "" && contents !== "") {
-        
+        const response = await fetch(`/api/posts/${id}`, {
+            body: JSON.stringify({
+                title,
+                contents
+              }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            });
     }
 }
