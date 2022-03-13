@@ -25,3 +25,8 @@ const userData = [
       password: 'therapperdrake908'
     }
   ];
+//individual hooks for safer password protection
+  const seedUser = () => User.bulkCreate(userData, { individualHooks: true });
+
+  module.exports = seedUser;
+
