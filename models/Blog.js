@@ -35,7 +35,7 @@ Blog.init(
           }
         },
     {
-        //sequalize
+        //sequelize
         sequelize,
       freezeTableName: true,
       underscored: true,
