@@ -27,6 +27,17 @@
           type="password"
           name="signup-password"
           id="signup-password"
-          placeholder="Enter password here" />
+          placeholder="Enter password here"  />
       </div>
+      <div>
+          {{!-- signup button --}}
+        <button type="submit" class="btn signup">Sign-Up</button>
+      </div>
+      <div>
+          {{!-- message for people that already have an account so they can sign in instead of signing up for a diff account --}}
+        <p class="login-text">Created Account already? sign in here:</p>
+        <button class="btn login"><a href="/login">Login</a></button>
+      </div>
+    </form>
+  </div>
 </section>
