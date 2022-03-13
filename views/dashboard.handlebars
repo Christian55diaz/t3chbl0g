@@ -4,3 +4,13 @@
         <a href="/dashboard/createpost/"><button id="create-post" class="btn create-post">start blog</button></a>
 {{#if Blog.length}}
 </div>
+
+{{!-- edit blog post --}}
+{{#each Blog as |blog|}}
+        {{> Blog-content blog}}
+            <a href="/dashboard/editpost/{{blog.id}}"><button class="btn edit-post">edit post</button></a>
+    {{/each}}
+{{!-- error message for a no posts user --}}
+{{else}}
+<h6 class="error-text">you do not currently have any posts</h6>
+{{/if}}
