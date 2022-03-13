@@ -23,3 +23,7 @@ const blogData =  [
       user_id: 4
     }
   ];
+  //bulkcreat blogData
+  const seedBlog = () => Blog.bulkCreate(blogData);
+//export Blog seeds
+module.exports = seedBlog;
