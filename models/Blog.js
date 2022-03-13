@@ -20,5 +20,22 @@ Blog.init(
             type: DataTypes.STRING,
             allowNull: false
           },
+          contents: {
+            type: DataTypes.STRING,
+            allowNull: false
+            //here we could validate and make sure url is true but we do not need too.
+          },
+          user_id: {
+            type: DataTypes.INTEGER,
+            references: {
+                //we refrence user model plus the key is the id by association
+              model: 'user',
+              key: 'id'
+            }
+          }
+        },
+    {
+        //sequalize
+        
     }
 )
