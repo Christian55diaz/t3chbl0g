@@ -36,6 +36,11 @@ Blog.init(
         },
     {
         //sequalize
-        
+        sequelize,
+      freezeTableName: true,
+      underscored: true,
+      modelName: 'blog'
     }
-)
+);
+
+module.exports = Blog;
