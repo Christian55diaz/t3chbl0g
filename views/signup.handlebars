@@ -2,13 +2,31 @@
      <h2 class="signup-title">sign-up</h2><hr />
   <div class="signup-container">
     <form class="signup-form">
+        {{!-- username for signup --}}
         <div>
         <label class="username" for="username">Username:</label>
         <input
           type="text"
           name="username"
           id="username"
-          placeholder="Enter username here"
-        />
+          placeholder="Enter username here" />
+      </div>
+      {{!-- email for signup --}}
+      <div>
+        <label class="signup-email" for="signup-email">Email:</label>
+        <input
+          type="email"
+          name="signup-email"
+          id="signup-email"
+          placeholder="Enter email here" />
+      </div>
+      {{!-- Password for signup --}}
+      <div>
+        <label class="signup-password" for="signup-password">Password:</label>
+        <input
+          type="password"
+          name="signup-password"
+          id="signup-password"
+          placeholder="Enter password here" />
       </div>
 </section>
