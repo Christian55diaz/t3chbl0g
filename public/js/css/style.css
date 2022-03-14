@@ -1,0 +1,17 @@
+html {
+    height: 100%;
+}
+/* universal */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+/* my colors for the website */
+:root {
+    --bg: #ffffff;
+    --secondary: #00daf7;
+    --text-color: #000000;
+    --error-text: rgb(255, 51, 0);
+    --nuke-comment: rgb(197, 70, 180);
+  }
