@@ -31,3 +31,17 @@ router.get("/", withAuth, (req, res) => {
         ],
       })
       //database data
+      .then((dbData) => {
+        //allows for better displaying on website
+        //mapping the blogs allows for easier database storage and accessability
+        const Blog = dbData.map((Blog) =>
+          blog.get({ plain: true })
+        );
+        res.render("dashboard", { Blog, loggedIn: true });
+    })
+    //catch and return if there is an error
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
