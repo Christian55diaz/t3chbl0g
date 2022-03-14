@@ -5,11 +5,19 @@
 
 {{!-- if logged in you will be able to see comments --}}
 {{#if loggedIn}}
-<form class="comment-section-form">
-  <div>
-    <textarea class="comment-body" name="comment-body"></textarea>
+<form class="comment-section">
+  <div>b
+    <textarea class="comment-area" name="comment-area"></textarea>
   </div>
 
   <div>
-    <button class="btn add-comment" type="submit">add your comment</button>
+    <button class="btn btn-comment" type="submit">comment</button>
   </div>
+  </form>
+{{/if}}
+{{!-- comments would be displayed for logged or not logged in users to see --}}
+{{> comments Blog.comments}}
+
+{{#if loggedIn}}
+<script src="/javascript/comment.js"></script>
+{{/if}}
