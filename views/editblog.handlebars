@@ -11,6 +11,15 @@
         class="blog-title"
         name="blog-title"
         type="text"
-        value="{{blogPost.title}}"
+        value="{{blog.title}}"
       />
     </div>
+    <div class="created-at-container">
+      <p>Created By You On: {{format_date Blog.created_at}}</p>
+      <a href="/blog/{{blog.id}}">{{Blog.comments.length}}
+        {{format_plural "comment" blog.comments.length}}</a>
+    </div>
+    <button type="submit" class="btn save">Save Your Blog</button>
+    <button type="button" class="btn delete-blog">Delete Your Blog</button>
+  </form>
+</article>
