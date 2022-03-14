@@ -9,11 +9,30 @@
 </head>
 
 <body>
-    <div>
-        <header>
-            <nav>
-                
-            </nav>
-        </header>
+  <div>
+    <header class="header">
+      <nav>
+        <a href="/login" class="login">login</a>
+        <button id="logout" class="btn-no-style">logout</button>
+      </nav>
+      <h1>
+        <a href="/" class="tech-blog">T3chbl0g</a>
+      </h1>
+    </header>
     </div>
+    <div>
+    <main>
+      {{{ body }}}
+    </main>
+    </div>
+
+    <footer>
+      Hope to see you agian!
+    </footer>
+    {{!-- if loggedin you will be able to logout --}}
+     {{#if loggedIn}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 </body>
+
+</html>
