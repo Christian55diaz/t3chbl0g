@@ -22,7 +22,6 @@ Contact email: chrisdiaz5237@gmail.com
   
 GitHub: [christian55diaz](https://github.com/christian55diaz)
 
-Deployment: https://t3chbl0g.herokuapp.com/
-
+Deployment: https://techblognew.herokuapp.com/
 ## Credits
 Thank you for checking out my github repo
