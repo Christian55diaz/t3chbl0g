@@ -24,10 +24,25 @@ html {
       margin-bottom: 10%;
   }
   body{
-
+    background-color: var(--bg);
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  /* login */
   /* signup */
+
+  /* login */
   /* blog stuff */
   /* dashboard */
   /* create blog */
+
+
+/* btn */
+.btn {
+    display: inline;
+  justify-content: space-between;
+  font-size: 1em;
+  padding: 0.3em;
+  margin-bottom: 0.2rem;
+}
+  /* mobile use is in future development */
