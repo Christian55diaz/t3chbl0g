@@ -92,4 +92,37 @@ Blog.findOne({
       console.log(err);
       res.status(500).json(err);
     });
-});
+
+//router get
+router.get("/create-blog/", withAuth, (req, res) => {
+    //blog findall
+    Blog.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+      attributes: ["id", "title", "created_at", "blog_content"],
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            "id",
+            "comment_text",
+            "blog_id",
+            "user_id",
+            "created_at",
+          ],
+        },
+      ],
+    })
+      // only using one model here
+      .then((dbData) => {
+        const Blog = dbData.map((Blog) => Blog.get({ plain: true }));
+        res.render("create-blog", { Blog, loggedIn: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+//exporting function
+  module.exports = router;
