@@ -77,3 +77,17 @@ router.get("/", (req, res) => {
         res.status(500).json(err);
       });
   });
+  //create blog post
+  router.post("/", withAuth, (req, res) => {
+    Blog.create({
+      title: req.body.title,
+      blog_content: req.body.blog_content,
+      user_id: req.session.user_id,
+    })
+      //   since this is only about creating a blog post I am saying with the variable where it came from
+      .then((dbBlogData) => res.json(dbBlogData))
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });

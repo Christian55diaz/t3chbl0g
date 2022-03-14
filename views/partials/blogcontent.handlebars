@@ -1,0 +1,16 @@
+<div class="blog-card">
+
+    <div class="blog-title-container">
+      <a href="/blogpost/{{id}}"  class="blog-title">{{title}}</a></p>
+    </div>
+    <div class="blog-container">
+        <div class="blog-card-info">
+            {{blog_content}}
+        </div>
+            <div class="blog-card-user-info-container">
+                <b>Posted by: {{user.username}}</b>
+                 | {{format_date created_at}} | <a href="/blogpost/{{id}}">{{comments.length}} {{format_plural "comment" comments.length}}</a>
+            </div>
+        
+    </div>
+</div>
