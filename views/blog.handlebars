@@ -1,1 +1,15 @@
 {{!-- MAKING THIS INTO A PARTIAL SO THAT IT IS EASIER TO MANAGE --}}
+
+{{!-- setup blog content --}}
+{{> blog-stuff Blog}}
+
+{{!-- if logged in you will be able to see comments --}}
+{{#if loggedIn}}
+<form class="comment-section-form">
+  <div>
+    <textarea class="comment-body" name="comment-body"></textarea>
+  </div>
+
+  <div>
+    <button class="btn add-comment" type="submit">add your comment</button>
+  </div>
