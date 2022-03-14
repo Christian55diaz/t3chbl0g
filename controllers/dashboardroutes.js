@@ -34,7 +34,7 @@ router.get("/", withAuth, (req, res) => {
       .then((dbData) => {
         //allows for better displaying on website
         //mapping the blogs allows for easier database storage and accessability
-        const Blog = dbData.map((Blog) =>
+        const Blog = dbData.map((blog) =>
           blog.get({ plain: true })
         );
         res.render("dashboard", { Blog, loggedIn: true });
@@ -45,3 +45,9 @@ router.get("/", withAuth, (req, res) => {
       res.status(500).json(err);
     });
 });
+//router.get
+router.get("/edit-blog/:id", withAuth, (req, res) => {
+//findout blog by id
+Blog.findOne({
+
+})
