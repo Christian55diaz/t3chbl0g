@@ -49,5 +49,34 @@ router.get("/", withAuth, (req, res) => {
 router.get("/edit-blog/:id", withAuth, (req, res) => {
 //findout blog by id
 Blog.findOne({
-
+    where: {
+        id: req.params.id,
+      },
+      //most of this code is used over and over
+      attributes: ["id", "title", "created_at", "blog_content"],
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            "id",
+            "comment_text",
+            "blog_id",
+            "user_id",
+            "created_at",
+          ],
+          // need for comments
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
+        },
+      ],
+    })
 })
+.then((dbData) => {
+    if (!dbData) {
+      res
+        .status(404)
+        .json({ message: "No blog post was found with this id" });
+      return;
+    }
