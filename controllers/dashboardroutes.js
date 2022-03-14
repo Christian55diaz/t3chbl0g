@@ -1,10 +1,10 @@
 // importing the needed dependencies
 const router = require("express").Router();
-const { BlogPost, User, Comment } = require("../models");
+const { Blog, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
 router.get("/", withAuth, (req, res) => {
-  BlogPost.findAll({
+  Blog.findAll({
     where: {
       // get the user from the session that way they are able to create a blog post
       // this will be done when I want the user to access something
@@ -17,7 +17,7 @@ router.get("/", withAuth, (req, res) => {
         attributes: [
           "id",
           "comment_text",
-          "blogpost_id",
+          "blog_id",
           "user_id",
           "created_at",
         ],
@@ -56,7 +56,7 @@ router.get("/edit-blogpost/:id", withAuth, (req, res) => {
         attributes: [
           "id",
           "comment_text",
-          "blogpost_id",
+          "blog_id",
           "user_id",
           "created_at",
         ],
@@ -73,7 +73,7 @@ router.get("/edit-blogpost/:id", withAuth, (req, res) => {
       if (!dbData) {
         res
           .status(404)
-          .json({ message: "No blog post was found with this id" });
+          .json({ message: "blog not found with id" });
         return;
       }
 
@@ -103,7 +103,7 @@ router.get("/create-blogpost/", withAuth, (req, res) => {
         attributes: [
           "id",
           "comment_text",
-          "blogpost_id",
+          "blog_id",
           "user_id",
           "created_at",
         ],

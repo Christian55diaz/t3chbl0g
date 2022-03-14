@@ -6,8 +6,8 @@
 </div>
 
 {{!-- edit blog post --}}
-{{#each Blog as |blog|}}
-        {{> Blog-content blog}}
+{{#each blog-content as |blog|}}
+        {{> blog-content blog}}
             <a href="/dashboard/editpost/{{blog.id}}"><button class="btn edit-post">edit post</button></a>
     {{/each}}
 {{!-- error message for a no posts user --}}
