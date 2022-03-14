@@ -80,14 +80,63 @@ router.get("/", (req, res) => {
   //create blog post
   router.post("/", withAuth, (req, res) => {
     Blog.create({
+        //require title,content, and user id
       title: req.body.title,
       blog_content: req.body.blog_content,
       user_id: req.session.user_id,
     })
-      //   since this is only about creating a blog post I am saying with the variable where it came from
       .then((dbBlogData) => res.json(dbBlogData))
       .catch((err) => {
         console.log(err);
         res.status(500).json(err);
       });
   });
+  // updating blog by its id
+router.put("/:id", withAuth, (req, res) => {
+    Blog.update(
+      {
+        title: req.body.title,
+        blog_content: req.body.blog_content,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    )
+      .then((dbBlogPostData) => {
+        if (!dbBlogPostData) {
+          res
+            .status(404)
+            .json({ message: "no id found with this post" });
+          return;
+        }
+        res.json(dbBlogPostData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+  // this blog post will get deleted and destryoyed
+  // defintetly not the best practice for a blog like this but wanted to try it out
+router.delete("/:id", withAuth, (req, res) => {
+    Blog.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((dbBlogPostData) => {
+        if (!dbBlogPostData) {
+          res.status(404).json({ message: "post not found with this id" });
+          return;
+        }
+        res.json(dbBlogPostData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+  //never forget to export
+  module.exports = router;

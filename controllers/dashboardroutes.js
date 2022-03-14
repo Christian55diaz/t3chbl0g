@@ -1,90 +1,87 @@
 // importing the needed dependencies
 const router = require("express").Router();
-const { Blog, User, Comment } = require("../models");
+const { BlogPost, User, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
-//router get 
 router.get("/", withAuth, (req, res) => {
-    //find all blogposts
-    Blog.findAll({
-        where: {
-          //user from session so user can create post
-          user_id: req.session.user_id,
-        },
-        //alot of the routes are re-use from other projects just different wording
-        attributes: ["id", "title", "created_at", "blog_content"],
-        include: [
-          {
-            model: Comment,
-            attributes: [
-              "id",
-              "comment_text",
-              "blog_id",
-              "user_id",
-              "created_at",
-            ],
-          },
-          {
-            model: User,
-            attributes: ["username"],
-          },
+  BlogPost.findAll({
+    where: {
+      // get the user from the session that way they are able to create a blog post
+      // this will be done when I want the user to access something
+      user_id: req.session.user_id,
+    },
+    attributes: ["id", "title", "created_at", "blog_content"],
+    include: [
+      {
+        model: Comment,
+        attributes: [
+          "id",
+          "comment_text",
+          "blogpost_id",
+          "user_id",
+          "created_at",
         ],
-      })
-      //database data
-      .then((dbData) => {
-        //allows for better displaying on website
-        //mapping the blogs allows for easier database storage and accessability
-        const Blog = dbData.map((blog) =>
-          blog.get({ plain: true })
-        );
-        res.render("dashboard", { Blog, loggedIn: true });
+      },
+      {
+        model: User,
+        attributes: ["username"],
+      },
+    ],
+  })
+    // using more than one of the models so I am saying with this var my data is coming from the db
+    .then((dbData) => {
+      // makes the data useable that way I can display it properly on the website
+      // felt like I should probably keep this consistent and call the vars im mapping out the same as the
+      // const that way it makes sense readibility wise
+      const blogPosts = dbData.map((blogPosts) =>
+        blogPosts.get({ plain: true })
+      );
+      res.render("dashboard", { blogPosts, loggedIn: true });
     })
-    //catch and return if there is an error
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
     });
 });
-//router.get
-router.get("/edit-blog/:id", withAuth, (req, res) => {
-//findout blog by id
-Blog.findOne({
-    where: {
-        id: req.params.id,
-      },
-      //most of this code is used over and over
-      attributes: ["id", "title", "created_at", "blog_content"],
-      include: [
-        {
-          model: Comment,
-          attributes: [
-            "id",
-            "comment_text",
-            "blog_id",
-            "user_id",
-            "created_at",
-          ],
-          // need for comments
-          include: {
-            model: User,
-            attributes: ["username"],
-          },
-        },
-      ],
-    })
-})
-.then((dbData) => {
-    if (!dbData) {
-      res
-        .status(404)
-        .json({ message: "Blog cannot be found with id" });
-      return;
-    }
-    //same thing as above
-    const Blog = dbData.get({ plain: true });
 
-      res.render("edit-blog", {
-        Blog,
+router.get("/edit-blogpost/:id", withAuth, (req, res) => {
+  BlogPost.findOne({
+    where: {
+      id: req.params.id,
+    },
+    attributes: ["id", "title", "created_at", "blog_content"],
+    include: [
+      {
+        model: Comment,
+        attributes: [
+          "id",
+          "comment_text",
+          "blogpost_id",
+          "user_id",
+          "created_at",
+        ],
+        // need this for comments that way the username will show up
+        include: {
+          model: User,
+          attributes: ["username"],
+        },
+      },
+    ],
+  })
+    // same as above I am keeping this more generic that way you can see i am getting the data from the db
+    .then((dbData) => {
+      if (!dbData) {
+        res
+          .status(404)
+          .json({ message: "No blog post was found with this id" });
+        return;
+      }
+
+      // same concept as above making the data useable that way I can display it on the website
+      const blogPost = dbData.get({ plain: true });
+
+      res.render("edit-blogpost", {
+        blogPost,
         loggedIn: true,
       });
     })
@@ -92,37 +89,36 @@ Blog.findOne({
       console.log(err);
       res.status(500).json(err);
     });
+});
 
-//router get
-router.get("/create-blog/", withAuth, (req, res) => {
-    //blog findall
-    Blog.findAll({
-      where: {
-        user_id: req.session.user_id,
+router.get("/create-blogpost/", withAuth, (req, res) => {
+  BlogPost.findAll({
+    where: {
+      user_id: req.session.user_id,
+    },
+    attributes: ["id", "title", "created_at", "blog_content"],
+    include: [
+      {
+        model: Comment,
+        attributes: [
+          "id",
+          "comment_text",
+          "blogpost_id",
+          "user_id",
+          "created_at",
+        ],
       },
-      attributes: ["id", "title", "created_at", "blog_content"],
-      include: [
-        {
-          model: Comment,
-          attributes: [
-            "id",
-            "comment_text",
-            "blog_id",
-            "user_id",
-            "created_at",
-          ],
-        },
-      ],
+    ],
+  })
+    // again keeping this more generic since I am using more than one model
+    .then((dbData) => {
+      const blogPosts = dbData.map((blogPost) => blogPost.get({ plain: true }));
+      res.render("create-blogpost", { blogPosts, loggedIn: true });
     })
-      // only using one model here
-      .then((dbData) => {
-        const Blog = dbData.map((Blog) => Blog.get({ plain: true }));
-        res.render("create-blog", { Blog, loggedIn: true });
-      })
-      .catch((err) => {
-        console.log(err);
-        res.status(500).json(err);
-      });
-  });
-//exporting function
-  module.exports = router;
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+module.exports = router;

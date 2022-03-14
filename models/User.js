@@ -1,74 +1,66 @@
 //user model
 //require bcrypt for hasing library
-const bcrypt = require('bcrypt');
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection'); 
+const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcrypt");
+const sequelize = require("../config/connection");
 
-//user model which is also used for user table
 class User extends Model {
-    //method to run(per user) to check passwords
-    checkPassword(loginPw) {
-        return bcrypt.compareSync(loginPw, this.password);
-    }
+  // this just checks the password to see if it matches the user trying to login
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
 }
-//we set up our user models for our database
+
 User.init(
-    {
-        //id column
-        id: {
-            //specifcy what type of data this is with DataTypes 
-            type: DataTypes.INTEGER,
-            //sql version of saying not null
-            allowNull: false,
-            //primary key
-            primaryKey: true,
-            //turning on auto-increment
-            autoIncrement: true
-        },
-        //lets make a username column
-        username: {
-            type: DataTypes.STRING,
-            allowNull: false
-          },
-          //email
-          email: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
-            validate: {
-              isEmail: true,
-            },
-          //password column
-          password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-              // length of password must be at least 8 characters
-              len: [8]
-            }
-        }
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
     },
-        //async/await function
-        //hash everytime user is created to save for later
-        //new password will be 10 so its harder to be hacked
-        hooks: {
-            //beforeCreate setup
-            async beforeCreate(newUserData) {
-                newUserData.password = await bcrypt.hash(newUserData.password, 10);
-                return newUserData;
-              },
-              //beforeUpdate
-              async beforeUpdate(updatedUserData) {
-                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-                return updatedUserData;
-            }
-        },
-        sequelize,
-        timestamps: false,
-        freezeTableName: true,
-        underscored: true,
-        modelName: 'user'
-    }
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        isEmail: true,
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [6],
+      },
+    },
+  },
+  {
+    // this hook will in theory hash the new passwords by 10 characters but also update existing passwords with a new hash
+    // essentially making this hard to crack
+    hooks: {
+      async beforeCreate(newUserData) {
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      async beforeUpdate(updatedUserData) {
+        updatedUserData.password = await bcrypt.hash(
+          updatedUserData.password,
+          10
+        );
+        return updatedUserData;
+      },
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: "user",
+  }
 );
 
 module.exports = User;

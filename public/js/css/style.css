@@ -8,12 +8,13 @@ html {
     box-sizing: border-box;
 }
 /* my colors for the website */
+/* :root is css variables so I am setting up my whole css file so its easier than type the same stuff over and over */
 :root {
     --bg: #ffffff;
     --secondary: #00daf7;
     --text-color: #000000;
     --error-text: rgb(255, 51, 0);
-    --nuke-comment: rgb(197, 70, 180);
+    -delete-comment: rgb(197, 70, 180);
   }
   header{
       background-color: gray;
@@ -50,6 +51,23 @@ html {
   margin: 0.5rem;
 }
   /* login */
+  .login-container {
+    justify-content: flex-start;
+  }
+  .login-title {
+    padding: 1rem;
+    text-decoration: none;
+  }
+  .login-form {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+  .email-login,
+.password-login,
+.sign-up-text {
+   color:  var(--text-color);
+}
+
   /* blog stuff */
   /* dashboard */
   /* create blog */
