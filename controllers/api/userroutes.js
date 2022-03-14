@@ -121,7 +121,7 @@ router.post("/logout", (req, res) => {
     })
       .then((dbUserData) => {
         if (!dbUserData[0]) {
-          res.status(404).json({ message: "No user found with this id" });
+          res.status(404).json({ message: "user not found" });
           return;
         }
         res.json(dbUserData);
@@ -131,4 +131,24 @@ router.post("/logout", (req, res) => {
         res.status(500).json(err);
       });
   });
-  
+ // deleting user
+router.delete("/:id", withAuth, (req, res) => {
+    User.destroy({
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((dbUserData) => {
+        if (!dbUserData) {
+          res.status(404).json({ message: "user not found" });
+          return;
+        }
+        res.json(dbUserData);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json(err);
+      });
+  });
+  //exporting
+  module.exports = router;
