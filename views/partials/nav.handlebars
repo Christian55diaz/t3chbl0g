@@ -1,0 +1,10 @@
+<nav>
+  {{! need to leave this button outside of the else statement that way it will function properly througout all pages }}
+  <button class="btn home"><a href="/">Home</a></button>
+  {{#if loggedIn}}
+    <button id="logout" class="btn logout">Logout</button>
+    <button class="btn dashboard"><a href="/dashboard">Dashboard</a></button>
+  {{else}}
+    <button class="btn login"><a href="/login">Login</a></button>
+  {{/if}}
+</nav>
