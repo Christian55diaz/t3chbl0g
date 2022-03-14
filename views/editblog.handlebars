@@ -23,3 +23,13 @@
     <button type="button" class="btn delete">Delete Blog</button>
   </form>
 </article>
+{{!-- comments will be shown here --}}
+{{> comments Blog.comments}}
+<div>
+  <button class="btn delete-comments">Delete Comments</button>
+ </div>
+{{! all the javascript that allow this handlebars to run }}
+ 
+<script src="/javasript/deletecomment.js"></script>
+<script src="/javasript/editpost.js"></script>
+<script src="/javasript/removepost.js"></script>
