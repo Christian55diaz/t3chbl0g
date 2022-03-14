@@ -77,6 +77,19 @@ Blog.findOne({
     if (!dbData) {
       res
         .status(404)
-        .json({ message: "No blog post was found with this id" });
+        .json({ message: "Blog cannot be found with id" });
       return;
     }
+    //same thing as above
+    const Blog = dbData.get({ plain: true });
+
+      res.render("edit-blog", {
+        Blog,
+        loggedIn: true,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
