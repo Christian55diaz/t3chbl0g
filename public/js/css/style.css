@@ -30,6 +30,17 @@ html {
     flex-direction: column;
   }
   /* signup */
+  .signup-container {
+      /* starts items at the cross axis */
+      justify-content: flex-start;
+  }
+  /* this for the signup types */
+  .username,
+.signup-email,
+.signup-password,
+.login-text {
+  color: var(--text-color);
+}
   .signup-title {
     padding: 1rem;
     text-decoration: none;
