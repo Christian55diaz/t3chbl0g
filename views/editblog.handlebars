@@ -1,0 +1,16 @@
+{{!-- blog post editing  --}}
+{{!-- lets setup the article where all our setting to edit will be located --}}
+
+<article>
+  <a href="/dashboard" class="dashboard-here"> &larr; back to dashboard</a>
+  <h2 class="title">Edit Blog Post</h2><hr />
+  <form class="edit-blog-form">
+    <div>
+      <label class="blogpost-title" for="blogpost-title">Your Blog:</label>
+      <input
+        class="blog-title"
+        name="blog-title"
+        type="text"
+        value="{{blogPost.title}}"
+      />
+    </div>
