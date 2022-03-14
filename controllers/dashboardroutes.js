@@ -93,3 +93,17 @@ router.get("/", (req, res) => {
         }
         //data is allowed to be passed through to website
         const Blog = dbBlogData.get({ plain: true });
+
+         // once the data is useable then I can pass it into the handlebars template that I made
+      res.render("blog", {
+        Blog,
+        loggedIn: req.session.loggedIn,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
+});
+
+module.exports = router;
