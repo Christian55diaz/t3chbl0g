@@ -56,3 +56,40 @@ router.get("/", (req, res) => {
     res.render("signup");
   });
   //findone blogpost by id
+  router.get("/blogpost/:id", withAuth, (req, res) => {
+    Blog.findOne({
+      where: {
+        id: req.params.id,
+      },
+      attributes: ["id", "title", "created_at", "blog_content"],
+      include: [
+        {
+          model: Comment,
+          attributes: [
+            "id",
+            "comment_text",
+            "blog_id",
+            "user_id",
+            "created_at",
+          ],
+          // for the comments
+          include: {
+            model: User,
+            attributes: ["username"],
+          },
+        },
+        // username of blog's author
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
+    })
+    //here we return an error if no post is found with id
+    .then((dbBlogData) => {
+        if (!dbBlogData) {
+          res.status(404).json({ message: "Post not found with id" });
+          return;
+        }
+        //data is allowed to be passed through to website
+        const Blog = dbBlogData.get({ plain: true });
